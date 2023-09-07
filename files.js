@@ -1,3 +1,6 @@
+
+/* This module will teach you how to us fs api to read, write, append and rename files */
+
 const fsPromisses = require('fs').promises;
 const path = require('path');
 
@@ -5,12 +8,15 @@ const fileOps = async()=>{
     try{
         const data = await fsPromisses.readFile(path.join(__dirname, 'files', 'starter.txt'), 'utf-8');
         console.log(data);
-        await fsPromisses.unlink(path.join(__dirname, 'files', 'starter.txt'));
+        // await fsPromisses.unlink(path.join(__dirname, 'files', 'starter.txt'));
         await fsPromisses.writeFile(path.join(__dirname, 'files', 'promiseWrite.txt'), data);
         await fsPromisses.appendFile(path.join(__dirname, 'files', 'promiseWrite.txt'), '\n\nNice to meet you Elvis');
         await fsPromisses.rename(path.join(__dirname, 'files', 'promiseWrite.txt'), path.join(__dirname, 'files', 'promiseComplete.txt'));
         const newData = await fsPromisses.readFile(path.join(__dirname, 'files', 'promiseComplete.txt'), 'utf-8');
         console.log(newData);
+
+        //deletes the file
+        await fsPromisses.unlink(path.join(__dirname, 'files', 'promiseComplete.txt'));
 
     }catch(err){
         console.error(err);
