@@ -4,7 +4,7 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path'); 
 
-const logEvent = async(message)=>{
+const logEvent = async(message, logName)=>{
     const dateTime = `${format(new Date(), 'yyyyMMdd\tHH:mm:ss')}`;
     const logItem = `${dateTime}\t${uuid()}\t${message}\n`;
     // console.log(logItem);
@@ -12,7 +12,7 @@ const logEvent = async(message)=>{
         //the function will 'await' until a new directory is created if there is no directory called 'logs'
         if(!fs.existsSync(path.join(__dirname, 'logs'))) await fsPromises.mkdir(path.join(__dirname, 'logs'));
         
-        await fsPromises.appendFile(path.join(__dirname, 'logs', 'eventLog.txt'), logItem)
+        await fsPromises.appendFile(path.join(__dirname, 'logs', logName), logItem)
     }catch(err){
         console.error(err);
     }
